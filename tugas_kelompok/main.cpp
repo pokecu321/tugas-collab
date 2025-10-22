@@ -14,7 +14,6 @@ struct siswa{
     string jurusan;
     nilai Nilai; // struct in struct
 };
-//tes
 //void tambahDataSiswa(siswa data,int n);//menambahkan data pada file siswa.txt
 /*void tampilDataSiswa();//membaca data dari file siswa.txt dan ditampilkan
 void cariSiswa();// berdasarkan NISN
@@ -29,11 +28,12 @@ void tambahdatasiswa(siswa data[],int n){
         {
             cout << "input siswa ke "<<i+1<<endl;
             cout << "Masukkan nama siswa: ";
-            cin >> data[i].nama;
+            cin.ignore();
+            getline(cin,data[i].nama);
             cout << "Masukkan NISN siswa: ";
-            cin >> data[i].NISN;
+            getline(cin,data[i].NISN);
             cout << "Masukkan jurusan siswa: ";
-            cin >> data[i].jurusan;
+            getline(cin,data[i].jurusan);
             cout << "Masukkan nilai Matematika: ";
             cin >> data[i].Nilai.Mtk;
             cout << "Masukkan nilai Bahasa Indonesia: ";
@@ -44,16 +44,21 @@ void tambahdatasiswa(siswa data[],int n){
             cin >> data[i].Nilai.IPA;
             cout <<endl;
 
-            filesiswa << data[i].nama << endl << data[i].NISN << endl << data[i].jurusan << endl 
-                      << data[i].Nilai.Mtk << endl << data[i].Nilai.BIn << endl 
-                      << data[i].Nilai.Big << endl << data[i].Nilai.IPA << endl;
+            filesiswa << "nama : " << data[i].nama <<endl
+                    << "nisn : "<< data[i].NISN << endl
+                    << "jurusan : "<< data[i].jurusan << endl
+                    << "nilai:"<<endl
+                    << "matematika : "<< data[i].Nilai.Mtk << endl
+                    << "bahasa indonesia : "<< data[i].Nilai.BIn << endl
+                    << "bahasa inggris : "<< data[i].Nilai.Big << endl
+                    << "ipa : "<< data[i].Nilai.IPA << endl << endl;
         } 
         filesiswa.close();
     }
     
 }
 void tampilDataSiswa(siswa data[],int n){
-    //ifstream file("data.txt");
+    ifstream filesiswa("data.txt");
     string baris;
     if (!filesiswa.is_open()){
         cout << "Gagal membuka file!" << endl;
@@ -61,7 +66,7 @@ void tampilDataSiswa(siswa data[],int n){
     else{
         while (getline(filesiswa,baris))
         {
-            cout << baris;
+            cout << baris<< endl;
         }
         
         filesiswa.close();
