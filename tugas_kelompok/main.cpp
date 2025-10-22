@@ -1,7 +1,9 @@
 #include <iostream>
 #include<fstream>
+#include<string>
 using namespace std;
-fstream filesiswa("data.txt",ios::app);
+// fstream filesiswa("data.txt",ios::app);
+//struktur
 struct nilai{
     float Mtk;
     float BIn;
@@ -14,18 +16,22 @@ struct siswa{
     string jurusan;
     nilai Nilai; // struct in struct
 };
+//tugas!!
 //void tambahDataSiswa(siswa data,int n);//menambahkan data pada file siswa.txt
 /*void tampilDataSiswa();//membaca data dari file siswa.txt dan ditampilkan
 void cariSiswa();// berdasarkan NISN
 float nilaiAkhir();// nilai akhir = 40%matematika+30%IPA+20%B indonesia +20%B Inggris
 void ranking(); // menampilkan data siswa berdasarkan peringkatnya*/
 
+//input data
 void tambahdatasiswa(siswa data[],int n){
-    if (filesiswa.is_open())
+    ofstream bacafilesiswa("data.txt");
+    if (bacafilesiswa.is_open())
     {
         cout << "Menambahkan data siswa ke file data.txt" << endl;
         for (int i = 0; i < n; i++)
         {
+            // input data
             cout << "input siswa ke "<<i+1<<endl;
             cout << "Masukkan nama siswa: ";
             cin.ignore();
@@ -44,7 +50,8 @@ void tambahdatasiswa(siswa data[],int n){
             cin >> data[i].Nilai.IPA;
             cout <<endl;
 
-            filesiswa << "nama : " << data[i].nama <<endl
+            // input data ke data.txt
+            bacafilesiswa << "nama : " << data[i].nama <<endl
                     << "nisn : "<< data[i].NISN << endl
                     << "jurusan : "<< data[i].jurusan << endl
                     << "nilai:"<<endl
@@ -53,25 +60,84 @@ void tambahdatasiswa(siswa data[],int n){
                     << "bahasa inggris : "<< data[i].Nilai.Big << endl
                     << "ipa : "<< data[i].Nilai.IPA << endl << endl;
         } 
-        filesiswa.close();
+        bacafilesiswa.close();
     }
     
 }
+
+// menpilkan data dari data.txt
 void tampilDataSiswa(siswa data[],int n){
-    ifstream filesiswa("data.txt");
+    ifstream tulisfilesiswa("data.txt");
     string baris;
-    if (!filesiswa.is_open()){
-        cout << "Gagal membuka file!" << endl;
-    }
-    else{
-        while (getline(filesiswa,baris))
+    if (tulisfilesiswa.is_open()){
+        while (getline(tulisfilesiswa,baris))
         {
             cout << baris<< endl;
         }
         
-        filesiswa.close();
+        tulisfilesiswa.close();
+    }
+    else{
+        cout << "Gagal membuka file!" << endl;
     }
 }
+
+// searching + sorting
+/*void carisiswa(siswa data[],int n){ //masih pusing
+
+    ifstream tulisfilesiswa("data.txt");
+    string baris;
+    string temp;
+    if (tulisfilesiswa.is_open())
+    {
+        for (int i = 0; i < n-1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if(stoi(data[j].NISN) > stoi(data[j + 1].NISN)){
+                    temp = data[j].NISN;
+                    data[j].NISN = data[j + 1].NISN;
+                    data[j + 1].NISN = temp;
+                }
+            }
+                
+        }
+        // buat tes bb sort
+        for (int i = 0; i < n; i++)
+        {
+            cout << data[i].NISN <<endl;
+        }
+        
+        // filesiswa.close();
+    }
+        
+    
+    else{
+        cout << "Gagal membuka file!" << endl;     
+    }
+}*/
+
+/*float nilaiakhir(siswa data[],int n){
+    ofstream baca
+    ifstream tulisfilesiswa("data.txt",ios::app);
+    if (tulisfilesiswa.is_open())
+    {
+        siswa temp;
+        int index = 1;
+        
+        // while ()
+        // {
+        //     
+        }
+        
+    
+    }
+    else{
+        cout << "gagal membuka file!"<<endl;
+    }
+    
+    
+}*/
 int main()
 {
     int n;
@@ -80,5 +146,6 @@ int main()
     siswa data[n];
     tambahdatasiswa(data,n);
     tampilDataSiswa(data,n);
-     
+    // carisiswa(data,n); masih pusing jadi belum lanjut
+    nilaiakhir(data,n);
 }
