@@ -9,6 +9,7 @@ struct nilai{
     float BIn;
     float Big;
     float IPA;
+    float rata;
 };
 struct siswa{
     string nama;
@@ -25,7 +26,7 @@ void ranking(); // menampilkan data siswa berdasarkan peringkatnya*/
 
 //input data
 void tambahdatasiswa(siswa data[],int n){
-    ofstream bacafilesiswa("data.txt");
+    ofstream bacafilesiswa("data.txt",ios::app);
     if (bacafilesiswa.is_open())
     {
         cout << "Menambahkan data siswa ke file data.txt" << endl;
@@ -49,7 +50,7 @@ void tambahdatasiswa(siswa data[],int n){
             cout << "Masukkan nilai IPA: ";
             cin >> data[i].Nilai.IPA;
             cout <<endl;
-
+            data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.BIn) + (0.2 * data[i].Nilai.Big);
             // input data ke data.txt
             bacafilesiswa << "nama : " << data[i].nama <<endl
                     << "nisn : "<< data[i].NISN << endl
@@ -58,11 +59,13 @@ void tambahdatasiswa(siswa data[],int n){
                     << "matematika : "<< data[i].Nilai.Mtk << endl
                     << "bahasa indonesia : "<< data[i].Nilai.BIn << endl
                     << "bahasa inggris : "<< data[i].Nilai.Big << endl
-                    << "ipa : "<< data[i].Nilai.IPA << endl << endl;
+                    << "ipa : "<< data[i].Nilai.IPA << endl 
+                    << "nilai akhir : " << data[i].Nilai.rata << endl
+                    << endl;
         } 
         bacafilesiswa.close();
     }
-    
+
 }
 
 // menpilkan data dari data.txt
@@ -147,5 +150,5 @@ int main()
     tambahdatasiswa(data,n);
     tampilDataSiswa(data,n);
     // carisiswa(data,n); masih pusing jadi belum lanjut
-    nilaiakhir(data,n);
+    // nilaiakhir(data,n);
 }
