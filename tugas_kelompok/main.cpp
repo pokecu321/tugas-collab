@@ -54,8 +54,8 @@ void tambahdatasiswa(siswa data[],int n){
             data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.Big) + (0.2 * data[i].Nilai.BIn);
             
             // input data ke data.txt
-            bacafilesiswa << "nama : " << data[i].nama <<endl;
             bacafilesiswa << "nisn : "<< data[i].NISN << endl;
+            bacafilesiswa << "nama : " << data[i].nama <<endl;
             bacafilesiswa << "jurusan : "<< data[i].jurusan << endl;
             bacafilesiswa << "nilai:"<<endl;
             bacafilesiswa << "matematika : "<< data[i].Nilai.Mtk << endl;
@@ -88,40 +88,53 @@ void tampilDataSiswa(siswa data[],int n){
     }
 }
 
-// searching + sorting
-/*void carisiswa(siswa data[],int n){ //masih pusing
+// searching
+void carisiswa(siswa data[],int n){ //masih pusing
 
     ifstream tulisfilesiswa("data.txt");
-    string baris;
-    string temp;
     if (tulisfilesiswa.is_open())
     {
-        for (int i = 0; i < n-1; i++)
+        string nisn;
+        cout << endl <<" pencarian "<<endl;
+        cout << "input nisn : ";
+        cin >> nisn;
+        string baris;
+        bool ditemukan = false;
+        //output
+        while (getline(tulisfilesiswa,baris))
         {
-            for (int j = 0; j < n - i - 1; j++)
+            size_t posisi = baris.find(nisn);//pencarian dengan kata kunci nama
+            if (posisi != string::npos) //pengecekan apakah benar benar ada "nama"
             {
-                if(stoi(data[j].NISN) > stoi(data[j + 1].NISN)){
-                    temp = data[j].NISN;
-                    data[j].NISN = data[j + 1].NISN;
-                    data[j + 1].NISN = temp;
-                }
-            }
                 
+                ditemukan = true;
+                cout << endl<<" data ditemukan "<<endl;
+                cout <<endl;
+
+                // tampilkan 8 baris berikutnya(karena tiap siswa punya 8 baris data)
+                for (int i = 0; i < 8 && getline(tulisfilesiswa, baris); i++) {
+                cout << baris << endl;
+                
+                }
+                cout <<endl;
+                break;//mengakhiri loop karena data ditemukan
+            }
+
+            
         }
-        // buat tes bb sort
-        for (int i = 0; i < n; i++)
+        if (!ditemukan)
         {
-            cout << data[i].NISN <<endl;
+            cout << " data tidak ditemukan "<<endl;
         }
         
-        // filesiswa.close();
+        
     }
         
     
     else{
         cout << "Gagal membuka file!" << endl;     
     }
-}*/
+}
 
 float nilaiakhir(siswa data[],int n){
     ifstream tulisfilesiswa("data.txt");//mengambil data dari data.txt
@@ -165,6 +178,6 @@ int main()
     siswa data[n];
     tambahdatasiswa(data,n);
     tampilDataSiswa(data,n);
-    // carisiswa(data,n); masih pusing jadi belum lanjut
+    carisiswa(data,n); 
     nilaiakhir(data,n);
 }
