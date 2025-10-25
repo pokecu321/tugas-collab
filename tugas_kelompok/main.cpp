@@ -25,7 +25,7 @@ void ranking(); // menampilkan data siswa berdasarkan peringkatnya*/
 
 //input data
 void tambahdatasiswa(siswa data[],int n){
-    ofstream bacafilesiswa("data.txt",ios::app);
+    ofstream bacafilesiswa("data.txt",ios::app);//baca file dalam mode append
     if (bacafilesiswa.is_open())
     {
         cout << "Menambahkan data siswa ke file data.txt" << endl;
@@ -49,37 +49,32 @@ void tambahdatasiswa(siswa data[],int n){
             cout << "Masukkan nilai IPA: ";
             cin >> data[i].Nilai.IPA;
             cout <<endl;
-<<<<<<< HEAD
-            data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.BIn) + (0.2 * data[i].Nilai.Big);
-=======
+
+            //hitung nilai rata rata
+            data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.Big) + (0.2 * data[i].Nilai.BIn);
             
->>>>>>> b8d37cb9f279b6addae1007e5a07133d516bb891
             // input data ke data.txt
-            bacafilesiswa << "nama : " << data[i].nama <<endl
-                    << "nisn : "<< data[i].NISN << endl
-                    << "jurusan : "<< data[i].jurusan << endl
-                    << "nilai:"<<endl
-                    << "matematika : "<< data[i].Nilai.Mtk << endl
-                    << "bahasa indonesia : "<< data[i].Nilai.BIn << endl
-                    << "bahasa inggris : "<< data[i].Nilai.Big << endl
-                    << "ipa : "<< data[i].Nilai.IPA << endl 
-<<<<<<< HEAD
-                    << "nilai akhir : " << data[i].Nilai.rata << endl
-                    << endl;
-=======
-                    << "nilai akhir : "<< data[i].Nilai.rata <<endl
-                    <<endl ;
->>>>>>> b8d37cb9f279b6addae1007e5a07133d516bb891
+            bacafilesiswa << "nama : " << data[i].nama <<endl;
+            bacafilesiswa << "nisn : "<< data[i].NISN << endl;
+            bacafilesiswa << "jurusan : "<< data[i].jurusan << endl;
+            bacafilesiswa << "nilai:"<<endl;
+            bacafilesiswa << "matematika : "<< data[i].Nilai.Mtk << endl;
+            bacafilesiswa << "bahasa indonesia : "<< data[i].Nilai.BIn << endl;
+            bacafilesiswa << "bahasa inggris : "<< data[i].Nilai.Big << endl;
+            bacafilesiswa << "ipa : "<< data[i].Nilai.IPA << endl ;
+            bacafilesiswa << "nilai akhir : "<< data[i].Nilai.rata <<endl << endl ;
         } 
         bacafilesiswa.close();
+        cout << "file berhasil di tulis" << endl;
     }
-
+    
 }
 
 // menpilkan data dari data.txt
 void tampilDataSiswa(siswa data[],int n){
-    ifstream tulisfilesiswa("data.txt");
+    ifstream tulisfilesiswa("data.txt");//tulis file
     string baris;
+    // tulis file
     if (tulisfilesiswa.is_open()){
         while (getline(tulisfilesiswa,baris))
         {
@@ -129,38 +124,36 @@ void tampilDataSiswa(siswa data[],int n){
 }*/
 
 float nilaiakhir(siswa data[],int n){
-    ofstream bacafile("data.txt",ios::app);
-    if(bacafile.is_open()){
-        for (int i = 0; i < n; i++)
+    ifstream tulisfilesiswa("data.txt");//mengambil data dari data.txt
+    if (tulisfilesiswa.is_open())
+    {
+        cout << endl <<" nilai akhir "<<endl;
+        string baris;
+        //output
+        while (getline(tulisfilesiswa,baris))
         {
-            data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.Big) + (0.2 * data[i].Nilai.BIn);
-            
-            bacafile << data[i].Nilai.rata;
+            size_t posisinm = baris.find("nama");//pencarian dengan kata kunci nama
+            if (posisinm != string::npos) //pengecekan apakah benar benar ada "nama"
+            {
+                string barisstring = baris.substr(posisinm);//memotong kata karena (posisinm),jadi hanya mengambil kata itu(full satu baris)
+                cout << barisstring << endl;
+            }
+            size_t posisi = baris.find("nilai akhir");//pencarian dengan kata kunci nama
+            if (posisi != string::npos)//pengecekan apakah benar benar ada "nama"
+            {
+                string barisstring = baris.substr(posisi);//memotong kata karena (posisinm),jadi hanya mengambil kata itu(full satu baris)
+                cout << barisstring << endl;
+                cout <<endl;
+            }
             
         }
-        bacafile.close();
         
     }
-    else{
-        cout << "gagal membuka file!"<<endl;
-    }
-    
-    
-    ifstream tulisfilesiswa("data.txt");
-    if(tulisfilesiswa.is_open())
+    else
     {
-        int idx = 0;
-        string baris;
-        while (tulisfilesiswa >> data[idx].Nilai.rata)
-        {
-            cout << data[idx].Nilai.rata << endl;
-            idx++;
-        }
-        tulisfilesiswa.close();
-    }
-    else{
         cout << "gagal membuka file!"<<endl;
     }
+    
     return 0;
 }
 
@@ -173,5 +166,5 @@ int main()
     tambahdatasiswa(data,n);
     tampilDataSiswa(data,n);
     // carisiswa(data,n); masih pusing jadi belum lanjut
-    // nilaiakhir(data,n);
+    nilaiakhir(data,n);
 }
