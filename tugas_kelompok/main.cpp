@@ -2,7 +2,6 @@
 #include<fstream>
 #include<string>
 using namespace std;
-// fstream filesiswa("data.txt",ios::app);
 //struktur
 struct nilai{
     float Mtk;
@@ -50,7 +49,11 @@ void tambahdatasiswa(siswa data[],int n){
             cout << "Masukkan nilai IPA: ";
             cin >> data[i].Nilai.IPA;
             cout <<endl;
+<<<<<<< HEAD
             data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.BIn) + (0.2 * data[i].Nilai.Big);
+=======
+            
+>>>>>>> b8d37cb9f279b6addae1007e5a07133d516bb891
             // input data ke data.txt
             bacafilesiswa << "nama : " << data[i].nama <<endl
                     << "nisn : "<< data[i].NISN << endl
@@ -60,8 +63,13 @@ void tambahdatasiswa(siswa data[],int n){
                     << "bahasa indonesia : "<< data[i].Nilai.BIn << endl
                     << "bahasa inggris : "<< data[i].Nilai.Big << endl
                     << "ipa : "<< data[i].Nilai.IPA << endl 
+<<<<<<< HEAD
                     << "nilai akhir : " << data[i].Nilai.rata << endl
                     << endl;
+=======
+                    << "nilai akhir : "<< data[i].Nilai.rata <<endl
+                    <<endl ;
+>>>>>>> b8d37cb9f279b6addae1007e5a07133d516bb891
         } 
         bacafilesiswa.close();
     }
@@ -120,27 +128,42 @@ void tampilDataSiswa(siswa data[],int n){
     }
 }*/
 
-/*float nilaiakhir(siswa data[],int n){
-    ofstream baca
-    ifstream tulisfilesiswa("data.txt",ios::app);
-    if (tulisfilesiswa.is_open())
-    {
-        siswa temp;
-        int index = 1;
-        
-        // while ()
-        // {
-        //     
+float nilaiakhir(siswa data[],int n){
+    ofstream bacafile("data.txt",ios::app);
+    if(bacafile.is_open()){
+        for (int i = 0; i < n; i++)
+        {
+            data[i].Nilai.rata = (0.4 * data[i].Nilai.Mtk) + (0.3 * data[i].Nilai.IPA) + (0.2 * data[i].Nilai.Big) + (0.2 * data[i].Nilai.BIn);
+            
+            bacafile << data[i].Nilai.rata;
+            
         }
+        bacafile.close();
         
-    
     }
     else{
         cout << "gagal membuka file!"<<endl;
     }
     
     
-}*/
+    ifstream tulisfilesiswa("data.txt");
+    if(tulisfilesiswa.is_open())
+    {
+        int idx = 0;
+        string baris;
+        while (tulisfilesiswa >> data[idx].Nilai.rata)
+        {
+            cout << data[idx].Nilai.rata << endl;
+            idx++;
+        }
+        tulisfilesiswa.close();
+    }
+    else{
+        cout << "gagal membuka file!"<<endl;
+    }
+    return 0;
+}
+
 int main()
 {
     int n;

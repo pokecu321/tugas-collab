@@ -1,0 +1,30 @@
+nama : adin
+nisn : 1001
+jurusan : x pplg 2
+nilai:
+matematika : 95
+bahasa indonesia : 79
+bahasa inggris : 80
+ipa : 87
+nilai akhir : 95.9
+
+nama : epi
+nisn : 1002
+jurusan : x pplg 
+nilai:
+matematika : 90
+bahasa indonesia : 88
+bahasa inggris : 95
+ipa : 100
+nilai akhir : 102.6
+
+nama : what ice
+nisn : 1005
+jurusan : x pplg 2
+nilai:
+matematika : 100
+bahasa indonesia : 100
+bahasa inggris : 100
+ipa : 100
+nilai akhir : 110
+
